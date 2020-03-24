@@ -5,7 +5,7 @@ class PostForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: ""
+      title: "",
     };
   }
 
@@ -15,7 +15,7 @@ class PostForm extends Component {
     const { title } = this.state;
     const newPost = {
       title,
-      id: Date.now().toString()
+      id: Date.now().toString(),
     };
 
     this.props.createPost(newPost);
@@ -26,25 +26,29 @@ class PostForm extends Component {
     e.persist();
     this.setState(prevState => ({
       ...prevState,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
   render() {
     return (
       <form onSubmit={this.onSubmitHandler}>
-        <div className="form-group">
-          <label htmlFor="title">Заголовок записи</label>
+        <div className='form-group'>
+          <label htmlFor='title'>Заголовок записи</label>
           <input
             onChange={this.changeInputHandler}
-            type="text"
-            className="form-control"
-            id="title"
-            name="title"
+            type='text'
+            className='form-control'
+            id='title'
+            name='title'
             value={this.state.title}
           />
         </div>
-        <button type="submit" className="btn btn-success">
+        <button
+          disabled={!this.state.title.trim()}
+          type='submit'
+          className='btn btn-success'
+        >
           Создать
         </button>
       </form>
@@ -52,6 +56,6 @@ class PostForm extends Component {
   }
 }
 const mapDispatchToProps = {
-  createPost
+  createPost,
 };
 export default connect(null, mapDispatchToProps)(PostForm);
