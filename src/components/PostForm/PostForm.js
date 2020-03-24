@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createPost } from "../../redux/posts/actions";
+import { showAlert } from "../../redux/app/actions";
+
 class PostForm extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +15,9 @@ class PostForm extends Component {
     e.preventDefault();
 
     const { title } = this.state;
+    if (!title.trim()) {
+      return this.props.showAlert("Заполните заголовок записи");
+    }
     const newPost = {
       title,
       id: Date.now().toString(),
@@ -44,18 +49,16 @@ class PostForm extends Component {
             value={this.state.title}
           />
         </div>
-        <button
-          disabled={!this.state.title.trim()}
-          type='submit'
-          className='btn btn-success'
-        >
+        <button type='submit' className='btn btn-success'>
           Создать
         </button>
       </form>
     );
   }
 }
+
 const mapDispatchToProps = {
   createPost,
+  showAlert,
 };
 export default connect(null, mapDispatchToProps)(PostForm);

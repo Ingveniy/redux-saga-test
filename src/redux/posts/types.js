@@ -1,2 +1,3 @@
 export const CREATE_POST = "CREATE_POST";
 export const FETCH_POSTS = "FETCH_POSTS";
+export const FETCHED_POSTS_REQUEST = "FETCHED_POSTS_REQUEST";
